@@ -15,7 +15,7 @@ default_args = {
 
 # TODO(developer): update for your specific settings
 TASK_PARAMS_DICT = {
-    "dataset_id": "dbt_bq_example",
+    "dataset_id": "degreed",
     "project_id": "its-my-data-pipeline",
     "gcp_conn_id": "my_gcp_connection",
 }
