@@ -70,7 +70,7 @@ echo "***********************"
 helm install \
 airflow-local-desktop \
 airflow-stable/airflow \
---version 7.16.0 \
+--version 8.2.0 \
 --namespace "airflow" \
 --values ./custom-setup.yaml
 
