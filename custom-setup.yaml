@@ -201,6 +201,9 @@ airflow:
     - name: dags
       hostPath:
         path: /Users/zar/Desktop/projects_working/airflow-toolkit/dags/
+    - name: plugins
+      hostPath:
+        path: /Users/zar/Desktop/projects_working/airflow-toolkit/plugins/
     - name: dag-environment-configs
       hostPath:
         path: /Users/zar/Desktop/projects_working/airflow-toolkit/dag_environment_configs/
