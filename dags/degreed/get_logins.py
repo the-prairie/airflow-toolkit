@@ -23,7 +23,7 @@ TASK_PARAMS_DICT = {
 with DAG(
     "degreed_daily_logins", default_args=default_args, schedule_interval="@once"
 ) as dag:
-    bigquery_connection_check = BigQueryGetDatasetOperator(
+    degreed_daily_logins = BigQueryGetDatasetOperator(
         task_id="degreed-logins",
         dataset_id=TASK_PARAMS_DICT.get("dataset_id"),
         project_id=TASK_PARAMS_DICT.get("project_id"),
