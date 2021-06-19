@@ -5,7 +5,7 @@ from google.cloud import secretmanager
 
 # TODO(developer): update for your specific settings
 GIT_REPO = "github_the-prairie_airflow-toolkit"
-PROJECT_ID = "my-data-pipeline"
+PROJECT_ID = "its-my-data-pipeline"
 DBT_IMAGE = f"gcr.io/{PROJECT_ID}/dbt_docker:dev-latest"
 
 env = os.environ.copy()
