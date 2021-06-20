@@ -7,7 +7,7 @@ from airflow.utils.decorators import apply_defaults
 from airflow.models import BaseOperator
 from airflow.hooks import GoogleCloudStorageHook
 
-from plugins.degreed_plugin.hooks.degreed_hook import DegreedHook
+from hooks.degreed_hook import DegreedHook
 
 
 class DegreedToCloudStorageOperator(BaseOperator):
