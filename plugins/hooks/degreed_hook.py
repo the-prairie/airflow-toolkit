@@ -18,7 +18,7 @@ class DegreedHook(HttpHook):
             token=None):
         self.endpoint = endpoint
 
-        if endpoint == 'https://degreed.com/oauth/token':
+        if endpoint == 'degreed.com/oauth/token':
             data = {"grant_type": "client_credentials",
                     "client_id": "{0}".format(self.CLIENT_ID),
                     "client_secret": "{0}".format(self.CLIENT_SECRET),

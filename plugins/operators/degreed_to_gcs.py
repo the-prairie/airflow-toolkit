@@ -91,7 +91,7 @@ class DegreedToCloudStorageOperator(BaseOperator, SkipMixin):
         """
         This method maps the desired object to the relevant endpoint.
         """
-        mapping = {"auth": "https://degreed.com/oauth/token",
+        mapping = {"auth": "degreed.com/oauth/token",
                    "logins": "api.degreed.com/api/v2/logins"
                    }
 
