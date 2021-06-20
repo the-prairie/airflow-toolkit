@@ -4,14 +4,14 @@ import json
 from datetime import datetime, timedelta
 
 from airflow.utils.decorators import apply_defaults
-from airflow.models import BaseOperator
+from airflow.models import BaseOperator, SkipMixin
 from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
 
 
 from hooks.degreed_hook import DegreedHook
 
 
-class DegreedToCloudStorageOperator(BaseOperator):
+class DegreedToCloudStorageOperator(BaseOperator, SkipMixin):
     """
     Github To Cloud Storage Operator
     :param degreed_conn_id:          The Degreed connection id.
@@ -80,7 +80,7 @@ class DegreedToCloudStorageOperator(BaseOperator):
             raise Exception('Specified Degreed object not currently supported.')
 
     def execute(self, context):
-        self.token = (DegreedHook.get_conn(http_conn_id=self.degreed_conn_id)
+        self.token = (DegreedHook(http_conn_id=self.degreed_conn_id)
                         .run(self.methodMapper('auth'))
                         .json())['access_token']
         
