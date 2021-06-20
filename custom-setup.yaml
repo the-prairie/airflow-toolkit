@@ -170,6 +170,7 @@ airflow:
     - "google-cloud-storage"
     - "gcsfs"
     - "airflow-code-editor"
+    - "flatten_json"
 
   # https://stackoverflow.com/questions/58299948/helm-stable-airflow-custom-values-for-airflow-deployment-with-shared-persisten
   ## extra volumeMounts for the web/scheduler/worker Pods
