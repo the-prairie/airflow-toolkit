@@ -1,5 +1,4 @@
 from tempfile import NamedTemporaryFile
-from flatten_json import flatten
 import logging
 import json
 
