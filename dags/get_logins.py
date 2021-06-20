@@ -1,8 +1,7 @@
 from airflow import DAG
 from airflow.contrib.operators.bigquery_operator import BigQueryGetDatasetOperator
 
-from airflow.degreed_plugin.operators import degreed_to_cloud_storage_operator
-
+from operators import degreed_to_cloud_storage_operator
 
 default_args = {
     "depends_on_past": False,
