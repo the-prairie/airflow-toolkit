@@ -4,7 +4,8 @@ import json
 
 from airflow.utils.decorators import apply_defaults
 from airflow.models import BaseOperator
-from airflow.hooks import GoogleCloudStorageHook
+from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
+
 
 from hooks.degreed_hook import DegreedHook
 
