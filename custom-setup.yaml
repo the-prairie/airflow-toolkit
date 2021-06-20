@@ -181,6 +181,8 @@ airflow:
   extraVolumeMounts: # this will get the volume and mount it to that path in the container
     - name: dags
       mountPath: /opt/airflow/dags/ # location in the container it will put the directory mentioned below.
+    - name: plugins
+      mountPath: /opt/airflow/plugins/
     - name: dag-environment-configs
       mountPath: /opt/airflow/dag_environment_configs/
     - name: kube-config
