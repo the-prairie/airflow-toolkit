@@ -43,8 +43,8 @@ class DegreedToCloudStorageOperator(BaseOperator):
 
     template_fields = ('payload',
                        'gcs_key',
-                       'start_date',
-                       'end_date')
+                       'start_at',
+                       'end_at')
 
 
     def __init__(self,
@@ -54,8 +54,8 @@ class DegreedToCloudStorageOperator(BaseOperator):
                  gcs_bucket,
                  gcs_key,
                  output_format='json',
-                 start_date=None,
-                 end_date=None,
+                 start_at=None,
+                 end_at=None,
                  payload={},
                  *args,
                  **kwargs):
@@ -66,8 +66,8 @@ class DegreedToCloudStorageOperator(BaseOperator):
         self.gcs_bucket = gcs_bucket
         self.gcs_key = gcs_key
         self.output_format = output_format.lower()
-        self.start_date = start_date
-        self.end_date = end_date
+        self.start_at = start_at
+        self.end_at = end_at
         self.payload = payload
 
         if self.endpoint.lower() not in ('logins',
@@ -118,10 +118,10 @@ class DegreedToCloudStorageOperator(BaseOperator):
     #     else:
     #         for i in range(0,number_days):
     #             date = ref_date + timedelta(days=-i)
-    #             start_date = date.strftime("%Y-%m-%d")
-    #             end_date = date.strftime("%Y-%m-%d")
+    #             start_at = date.strftime("%Y-%m-%d")
+    #             end_at = date.strftime("%Y-%m-%d")
                 
-    #             urls.append(f"https://api.degreed.com/api/v2/{endpoint}?filter[start_date]={start_date}&filter[end_date]={end_date}&limit=1000")
+    #             urls.append(f"https://api.degreed.com/api/v2/{endpoint}?filter[start_at]={start_at}&filter[end_at]={end_at}&limit=1000")
 
     #     return urls
 
