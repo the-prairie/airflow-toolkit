@@ -1,5 +1,6 @@
 import json
 import os
+from dotenv import load_dotenv
 from airflow import DAG, settings
 from airflow.models import Connection
 from airflow.operators.python_operator import PythonOperator
@@ -11,6 +12,9 @@ from airflow_utils import DEPLOYMENT_SETUP, get_secret, set_google_app_credentia
 # gcloud secrets create airflow-conn-secret \
 #     --replication-policy="automatic" \
 #     --data-file=service_account.json
+
+load_dotenv()
+
 
 # # List the secret
 # gcloud secrets list
@@ -42,6 +46,7 @@ CONN_PARAMS_DICT = {
     "gcp_conn_id": "my_gcp_connection",
     "gcr_conn_id": "gcr_docker_connection",
     "secret_name": "airflow-conn-secret",
+    "degreed_conn_id": "degreed_api_connection"
 }
 
 
@@ -112,6 +117,37 @@ def add_docker_connection(ds, **kwargs):
         print(msg)
 
 
+def add_degreed_connection(ds, **kwargs):
+    """"Add a airflow connection for Degreed"""
+    new_conn = Connection(
+        conn_id=CONN_PARAMS_DICT["degreed_conn_id"], conn_type="http",
+        host="degreed.com/oauth/token"
+    )
+    # scopes = [
+    #     "users:read",
+    # ]
+    conn_extra = {
+        "client_id": os.getenv('DEGREED_CLIENT_ID'),
+        "client_secret": os.getenv('DEGREED_CLIENT_SECRET')
+    }
+    conn_extra_json = json.dumps(conn_extra)
+    new_conn.set_extra(conn_extra_json)
+
+    session = settings.Session()
+    if not (
+        session.query(Connection).filter(Connection.conn_id == new_conn.conn_id).first()
+    ):
+        session.add(new_conn)
+        session.commit()
+        msg = "\n\tA connection with `conn_id`={conn_id} is newly created\n"
+        msg = msg.format(conn_id=new_conn.conn_id)
+        print(msg)
+    else:
+        msg = "\n\tA connection with `conn_id`={conn_id} already exists\n"
+        msg = msg.format(conn_id=new_conn.conn_id)
+        print(msg)
+
+
 with DAG(dag_name, default_args=default_args, schedule_interval="@once") as dag:
 
     # Task to add a google cloud connection
@@ -125,6 +161,12 @@ with DAG(dag_name, default_args=default_args, schedule_interval="@once") as dag:
     t2 = PythonOperator(
         task_id="add-docker-connection-python",
         python_callable=add_docker_connection,
+        provide_context=True,
+    )
+
+    t3 = PythonOperator(
+        task_id="add-degreed-connection-python",
+        python_callable=add_degreed_connection,
         provide_context=True,
     )
 
